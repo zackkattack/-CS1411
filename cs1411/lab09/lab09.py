@@ -3,14 +3,20 @@ import os
 
 def createNameDict(questionList):
     playerNames = open("name.txt", 'r')
+    nameDictionary = open('togive.txt', 'w')
 
     nameDict = {}
     questionNumbers = {}
     for name in playerNames:
         name = name.strip()
-        #Problem with ammount of random numbers
-        #Sometiems 4 or 5
-        nameDict[name] = { random.randint(0,len(questionList)-1)for i in range(0,5)}
+        #Sometiemes 4 or 5 numbers generated in dictionary
+        nameDict[name] = {random.randint(0,len(questionList)-1) for i in range(5)}
+
+    for key, value in nameDict.items():
+        print("{} {}".format(key,sorted(value)), file=nameDictionary)
+
+    playerNames.close()
+    nameDictionary.close()
 
     return nameDict
 
@@ -57,7 +63,7 @@ def questionDisplay(num, questionList):
 
 def menu(nameList, questionList):
 
-    print("Welcom the quiz preparation program.")
+    print("Welcom the quiz spreparation program.")
     while(True):
         name = input("\nPlease input the name of a student who should take a practice quiz (enter EXIT to end the program): ")
         if name in nameList.keys():
@@ -80,5 +86,5 @@ def menu(nameList, questionList):
 
 questions = questionToList()
 NameDict= createNameDict(questions)
-
+#print(NameDict)
 menu(NameDict, questions)
