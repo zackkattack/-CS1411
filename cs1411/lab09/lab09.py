@@ -78,6 +78,7 @@ def menu(nameList, questionList):
 
             os.system('cls' if os.name == 'nt' else 'clear')
 
+
         elif name == "EXIT":
             print("Bye.")
             break
