@@ -5,6 +5,11 @@
 
 import random
 
+#" " = empty, O = O player, X = X player
+board = [[' ',' ',' '],
+         [' ',' ',' '],
+         [' ',' ',' ']]
+
 def drawBoard(board):
     # This function prints out the board that it was passed.
 
@@ -20,6 +25,7 @@ def drawBoard(board):
     print('   |   |')
     print(' ' + board[1] + ' | ' + board[2] + ' | ' + board[3])
     print('   |   |')
+
 
 def inputPlayerLetter():
     # Lets the player type which letter they want to be.
