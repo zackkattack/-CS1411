@@ -86,35 +86,34 @@ def checker(button,  num):
             button["text"] = "O"
             board[num-1] = "O"
             click = True
-        #
-        # if(board[0] == "O" and board[1] == "O"  and board[2] == "O" or
-        #    board[3] == "O" and board[4] == "O"  and board[5] == "O" or
-        #    board[6] == "O" and board[7] == "O"  and board[8] == "O" or
-        #    board[0] == "O" and board[3] == "O"  and board[6] == "O" or
-        #    board[1] == "O" and board[4] == "O"  and board[7] == "O" or
-        #    board[2] == "O" and board[5] == "O"  and board[8] == "O" or
-        #    board[0] == "O" and board[4] == "O"  and board[8] == "O" or
-        #    board[2] == "O" and board[4] == "O"  and board[6] == "O" ):
-        #         tkinter.messagebox.showinfo("O wins")
 
-        # if(board[0] == "X" and board[1] == "X"  and board[2] == "X" or
-        #    board[3] == "X" and board[4] == "X"  and board[5] == "X" or
-        #    board[6] == "X" and board[7] == "X"  and board[8] == "X" or
-        #    board[0] == "X" and board[3] == "X"  and board[6] == "X" or
-        #    board[1] == "X" and board[4] == "X"  and board[7] == "X" or
-        #    board[2] == "X" and board[5] == "X"  and board[8] == "X" or
-        #    board[0] == "X" and board[4] == "X"  and board[8] == "X" or
-        #    board[2] == "X" and board[4] == "X"  and board[6] == "X" ):
-        #         winner = ttk.Button(tkinter, text="", font= "Arial 30 bold", command=lambda: EndPage , height = 5, width = 10)
-        #         winner.pack()
+        if(board[0] == "O" and board[1] == "O"  and board[2] == "O" or
+           board[3] == "O" and board[4] == "O"  and board[5] == "O" or
+           board[6] == "O" and board[7] == "O"  and board[8] == "O" or
+           board[0] == "O" and board[3] == "O"  and board[6] == "O" or
+           board[1] == "O" and board[4] == "O"  and board[7] == "O" or
+           board[2] == "O" and board[5] == "O"  and board[8] == "O" or
+           board[0] == "O" and board[4] == "O"  and board[8] == "O" or
+           board[2] == "O" and board[4] == "O"  and board[6] == "O" ):
+                tkinter.messagebox.showinfo("O wins")
 
+        if(board[0] == "X" and board[1] == "X"  and board[2] == "X" or
+           board[3] == "X" and board[4] == "X"  and board[5] == "X" or
+           board[6] == "X" and board[7] == "X"  and board[8] == "X" or
+           board[0] == "X" and board[3] == "X"  and board[6] == "X" or
+           board[1] == "X" and board[4] == "X"  and board[7] == "X" or
+           board[2] == "X" and board[5] == "X"  and board[8] == "X" or
+           board[0] == "X" and board[4] == "X"  and board[8] == "X" or
+           board[2] == "X" and board[4] == "X"  and board[6] == "X" ):
+                print("X wins!!!")
         print(board)
 
 def start_over():
     for i in range(0,len(board)):
         board[i] = ""
 
-    controller.show_frame(StartPage)
+def re(self):
+    self.quit()
 
 
 class PageOne(tk.Frame):
@@ -184,7 +183,7 @@ class PageOne(tk.Frame):
         button8 = ttk.Button(self,
                              text="",
                              font= "Arial 30 bold",
-                             command=lambda: checker(button8,7),
+                             command=lambda: checker(button8,8),
                              height = 5,
                              width = 10)
         button8.grid(row=2, column=2 )
@@ -197,16 +196,24 @@ class PageOne(tk.Frame):
                              width = 10)
         button9.grid(row=2, column=3 )
 
+        MainMenu = ttk.Button(self, text="Main Menu", font= "Arial 10 bold",
+                                command=lambda:controller.show_frame(StartPage))
+        MainMenu.grid(row=3, column=1, padx = 10, pady= 10 )
+
+        Restart = ttk.Button(self, text="Restart", font= "Arial 10 bold",
+                                command=re(self))
+        Restart.grid(row=3, column=2, padx = 10, pady= 10 )
+
         End = ttk.Button(self, text="End", font= "Arial 10 bold",
                                 command=lambda: controller.show_frame(EndPage))
-        End.grid(row=3, column=2 , padx = 10, pady = 10)
-
-        StartOver = ttk.Button(self, text="Start Over", font= "Arial 10 bold",
-                                command=lambda:controller.show_frame(StartPage))
-        StartOver.grid(row=3, column=1, padx = 10, pady= 10 )
-
+        End.grid(row=3, column=3 , padx = 10, pady = 10)
 
         print("you there")
+
+    def re(self):
+        print(self)
+
+
 
 
 app = SeaofBYcapp()
