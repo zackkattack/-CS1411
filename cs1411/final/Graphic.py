@@ -85,15 +85,14 @@ class MainMenu(tk.Frame):
 
 #Ending page that asks if player wants to play again or quit
 class EndPage(tk.Frame):
+    message = ""
 
     #Constructor of EndPage. Darws new frame and displays buttons
     def __init__(self, parent, controller):
         tk.Frame.__init__(self,parent)
-        label = tk.Label(self, text ="End Page", font=LARGE_FONT)
+
+        label = tk.Label(self, text = EndPage.message, font=LARGE_FONT)
         label.pack(pady = 10, padx = 10)
-
-        self.winnerDisplay(label)
-
         #Button that restarts program when pressed
         play_again = tk.Button(self, text="Play Again",
                                 command= self.start_over)
@@ -105,7 +104,7 @@ class EndPage(tk.Frame):
 
     #Checks variable board to see who won the game and displays winner at the top
     #of the window
-    def winnerDisplay(self, Label):
+    def winnerDisplay():
         #Checks if O wins, if so displays "O wins!, would you like to play again?"
         #displays at the top of the window
         if(board[0] == "O" and board[1] == "O"  and board[2] == "O" or
@@ -116,7 +115,7 @@ class EndPage(tk.Frame):
            board[2] == "O" and board[5] == "O"  and board[8] == "O" or
            board[0] == "O" and board[4] == "O"  and board[8] == "O" or
            board[2] == "O" and board[4] == "O"  and board[6] == "O" ):
-                Label.labelText = "O wins! Would you like to play again?"
+                return "O wins! Would you like to play again?"
 
         #Checks if X wins, if so displays "X wins!, would you like to play again?"
         #displays at the top of the window
@@ -128,15 +127,15 @@ class EndPage(tk.Frame):
            board[2] == "X" and board[5] == "X"  and board[8] == "X" or
            board[0] == "X" and board[4] == "X"  and board[8] == "X" or
            board[2] == "X" and board[4] == "X"  and board[6] == "X" ):
-                Label.labelText = "x wins! Would you like to play again?"
+                return "x wins! Would you like to play again?"
         else:
             for i in board:
                 if i == "":
                     break
-                Label.labelText = "Stalmate! Would you like to play again?"
+                Label.config("Stalmate! Would you like to play again?")
 
     def start_over(self):
-        Game.destroy()
+        Game.destroy(self)
 
 
 
@@ -243,6 +242,8 @@ class Game(tk.Frame):
             global click
             global board
 
+            print(board)
+
             #checks weather to load AI gamem play or 2 Player by checking if
             # AI is true or false
             if not(AI): #If false, got to regular game play
@@ -280,11 +281,11 @@ class Game(tk.Frame):
             else:
                 for i in board:
                     if i != "":
-                        break
-                    else:
-                        print("Stalmate! Would you like to play again?")
-                        controller.show_frame(EndPage)
-            print(board)
+                        return
+                print("Stalmate! Would you like to play again?")
+                controller.show_frame(EndPage)
+
+
 
     #Player vs Player
     def player_vs_player(button, num):
