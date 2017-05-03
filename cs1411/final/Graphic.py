@@ -6,7 +6,6 @@ import random
 board = ['','','','','','','','','']# Array of game board
 click = True# Checks is player has clicked a button
 AI = False # Signals program to run program with AI
-name = "a"
 LARGE_FONT = ("Verdana", 12)
 
 #This class darws the menu for each part of the program and renders all stages
@@ -70,7 +69,7 @@ class MainMenu(tk.Frame):
         #Button made for AI game play. When clicked, it will display a AI game play
         playerAI = tk.Button(self,
                            text="AI",
-                           command=lambda: MainMenu.AI(controller))
+                           command=lambda: MainMenu.check_if_AI(controller))
         playerAI.pack()
 
         #Exit button. When clicked, closes window
@@ -79,7 +78,7 @@ class MainMenu(tk.Frame):
 
     #Indicator of what type of game play to load. Saves in variable AI and is loaded in
     #Game class to initiate AI game play or 2 player game play
-    def AI(controller):
+    def check_if_AI(controller):
         global AI
         AI = True
         controller.show_frame(Game)# Displays Game stage
@@ -124,7 +123,7 @@ class Game(tk.Frame):
         button0 = ttk.Button(container,
                              text=board[0],
                              font= "Arial 30 bold",
-                             command=lambda: Game.checker(controller,button0,0, button_array, numbers_of_spaces),
+                             command=lambda: Game.checker(controller, 0, button_array, numbers_of_spaces),
                              height = 5,
                              width = 10)
         button0.grid(row=0, column=1 )
@@ -133,7 +132,7 @@ class Game(tk.Frame):
         button1 = ttk.Button(container,
                              text=board[1],
                              font= "Arial 30 bold",
-                             command=lambda: Game.checker(controller, button1,1, button_array,numbers_of_spaces),
+                             command=lambda: Game.checker(controller, 1, button_array,numbers_of_spaces),
                              height = 5,
                              width = 10)
         button1.grid(row=0, column=2 )
@@ -142,7 +141,7 @@ class Game(tk.Frame):
         button2 = ttk.Button(container,
                              text=board[2],
                              font= "Arial 30 bold",
-                             command=lambda: Game.checker(controller, button2,2, button_array, numbers_of_spaces) ,
+                             command=lambda: Game.checker(controller, 2, button_array, numbers_of_spaces) ,
                              height = 5,
                              width = 10)
         button2.grid(row=0, column=3 )
@@ -151,7 +150,7 @@ class Game(tk.Frame):
         button3 = ttk.Button(container,
                              text=board[3],
                              font= "Arial 30 bold",
-                             command=lambda: Game.checker(controller, button3,3, button_array, numbers_of_spaces),
+                             command=lambda: Game.checker(controller, 3, button_array, numbers_of_spaces),
                              height = 5,
                              width = 10)
         button3.grid(row=1, column=1 )
@@ -160,7 +159,7 @@ class Game(tk.Frame):
         button4 = ttk.Button(container,
                              text=board[4],
                              font= "Arial 30 bold",
-                             command=lambda: Game.checker(controller, button4,4, button_array,numbers_of_spaces),
+                             command=lambda: Game.checker(controller, 4, button_array,numbers_of_spaces),
                              height = 5,
                              width = 10)
         button4.grid(row=1, column=2 )
@@ -169,7 +168,7 @@ class Game(tk.Frame):
         button5 = ttk.Button(container,
                              text=board[5],
                              font= "Arial 30 bold",
-                             command=lambda: Game.checker(controller, button5,5,button_array, numbers_of_spaces),
+                             command=lambda: Game.checker(controller, 5,button_array, numbers_of_spaces),
                              height = 5,
                              width = 10)
         button5.grid(row=1, column=3 )
@@ -178,7 +177,7 @@ class Game(tk.Frame):
         button6 = ttk.Button(container,
                              text=board[6],
                              font= "Arial 30 bold",
-                             command=lambda: Game.checker(controller, button6,6,button_array, numbers_of_spaces) ,
+                             command=lambda: Game.checker(controller, 6,button_array, numbers_of_spaces) ,
                              height = 5,
                              width = 10)
         button6.grid(row=2, column=1 )
@@ -187,7 +186,7 @@ class Game(tk.Frame):
         button7 = ttk.Button(container,
                              text=board[7],
                              font= "Arial 30 bold",
-                             command=lambda: Game.checker(controller, button7,7,button_array, numbers_of_spaces),
+                             command=lambda: Game.checker(controller, 7,button_array, numbers_of_spaces),
                              height = 5,
                              width = 10)
         button7.grid(row=2, column=2 )
@@ -196,7 +195,7 @@ class Game(tk.Frame):
         button8 = ttk.Button(container,
                              text=board[8],
                              font= "Arial 30 bold",
-                             command=lambda: Game.checker(controller, button8,8,button_array, numbers_of_spaces),
+                             command=lambda: Game.checker(controller, 8,button_array, numbers_of_spaces),
                              height = 5,
                              width = 10)
         button8.grid(row=2, column=3 )
@@ -213,16 +212,16 @@ class Game(tk.Frame):
         restart.grid(row=3, column=3 , padx = 10, pady = 10)
 
     #Checks if there is a winner after a game button is pressed
-    def checker(controller, button,  num, button_array, numbers_of_spaces):
+    def checker(controller, num, button_array, numbers_of_spaces):
             global click
             global board
 
             #checks weather to load AI gamem play or 2 Player by checking if
             # AI is true or false
             if not(AI): #If false, got to regular game play
-                Game.player_vs_player(button, num)
+                Game.player_vs_player(button_array, num)
             elif AI:
-                 Game.AI(button, num, button_array,  numbers_of_spaces)
+                 Game.AI(num, button_array, numbers_of_spaces)
 
             print(board)
 
@@ -270,29 +269,29 @@ class Game(tk.Frame):
 
     #Player vs Player Game logic. Lets one player make a move then restricts them
     #till after the other player makes their move.
-    def player_vs_player(button, num):
+    def player_vs_player(button_array, num):
         global click
         global board
 
         #Allows for 1v1 input
-        if button["text"] == "" and click == True:
-            board[num-1] = "X"
-            button["text"]= "x"
+        if button_array[num]["text"] == "" and click == True:
+            board[num] = "X"
+            button_array[num]["text"]= "X"
             click = False
-        elif button["text"] == "" and click == False:
-            board[num-1] = "O"
-            button["text"] ="O"
+        elif button_array[num]["text"] == "" and click == False:
+            board[num] = "O"
+            button_array[num]["text"] ="O"
             click = True
 
     #Allows player to Play against the computer
-    def AI(button, num, button_array, numbers_of_spaces):
+    def AI(num, button_array, numbers_of_spaces):
         global click
         global board
 
         #Allows for the player to click a box
-        if button["text"] == "" and click == True:
-            board[num-1] = "X"
-            button["text"]= "x"
+        if button_array[num]["text"] == "" and click == True:
+            board[num] = "X"
+            button_array[num]["text"]= "x"
             click = False
             #removes number from list of open spaces
             numbers_of_spaces.remove(num)
@@ -313,12 +312,16 @@ class Game(tk.Frame):
                         board[rand] = "O"
                         click = True
                         #removes spot from list of spots
-                        numbers_of_spaces.remove(rand)
+                        try:
+                            numbers_of_spaces.remove(rand)
+                        except IndexError:
+                            return
                         break
                     else:
                         rand = random.choice(numbers_of_spaces)
-        except  IndexError:
-            rand = random.choice(numbers_of_spaces)
+        #if there is a stalemate, the program will jump outof the Loops
+        except IndexError:
+            return
 
 app = TicTacToe()
 app.resizable(width=False, height=False)#Restricts frame size
