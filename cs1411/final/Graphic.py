@@ -1,3 +1,24 @@
+#Name: Zachary Carson and Bryan Arias
+#
+#Project Description: In our Tic Tac Toe game we created a simple program to run
+# Tic Tac Toe.In a board with 9 slots, the player is given the choice to choose
+# character “X” or  ”O”. Once player chooses the character of their choice, you
+# get to choose what slot you want. If you get 3 characters in a row you win the
+# game, if not the computer wins. After the game is over, it will display who the
+# winner is on text box then. After you click okay on the box, the program will
+# close.
+
+# input, output,
+# overall sequence of major steps in the code,
+# test cases
+# artifacts  used/origins  of  the  artifact/customized  changes  made  and  who
+# made  them,
+# team  member  assignments  clearly  showing  who  developed
+# which part of the project to include the names of functions written by each
+# team member,
+# instructions to run the program including any usernames and
+# modules
+
 import tkinter as tk
 import tkinter as ttk
 from tkinter import messagebox
@@ -262,7 +283,7 @@ class Game(tk.Frame):
                         j +=1
                 if j == 9:
                     #Displays winner on pop up box
-                    messagebox.showinfo("There is no winner","Stalmate!")
+                    messagebox.showinfo("There is no winner","Stalemate!")
                     controller.show_frame(EndPage)
 
 
@@ -300,9 +321,9 @@ class Game(tk.Frame):
         rand = random.choice(numbers_of_spaces)
 
         #Checks if rand is a valid move, and if the space is open. If so it
-        # makes its move to that sopt
+        # makes its move to that spot
         try:
-            #Checks if the spot id empty and rand is not the same the users input
+            #Checks if the spot is empty and rand is not the same the user"s input
             #if Given a bad number, the try will reassign the number to a different one
             if button_array[rand]["text"] == "" and rand != num :
                 while(True):
@@ -316,10 +337,12 @@ class Game(tk.Frame):
                             numbers_of_spaces.remove(rand)
                         except IndexError:
                             return
+                        except ValueError:
+                            return
                         break
                     else:
                         rand = random.choice(numbers_of_spaces)
-        #if there is a stalemate, the program will jump outof the Loops
+        #if there is a stalemate, the program will jump out of the Loops
         except IndexError:
             return
 

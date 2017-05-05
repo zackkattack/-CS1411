@@ -4,6 +4,7 @@
 # Tic Tac Toe
 
 import random
+import os
 
 #" " = empty, O = O player, X = X player
 board = [[' ',' ',' '],
