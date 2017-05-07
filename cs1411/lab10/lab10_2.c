@@ -14,6 +14,6 @@ void main(){
 	}
 	
 	average = sum/10;
-	printf("The class average is: %f", average);
+	printf("The class average is: %f\n", average);
 
 }
